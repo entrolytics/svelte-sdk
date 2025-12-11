@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.8",
-    "svelte": "^5.45.5",
+    "svelte": "^5.45.9",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },
