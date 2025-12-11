@@ -1,6 +1,6 @@
 # @entrolytics/svelte
 
-SvelteKit integration for [Entrolytics](https://ng.entrolytics.click) - First-party growth analytics for the edge.
+SvelteKit SDK for [Entrolytics](https://ng.entrolytics.click) - First-party growth analytics for the edge.
 
 ## Installation
 
