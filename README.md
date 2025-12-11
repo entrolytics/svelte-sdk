@@ -1,6 +1,21 @@
-# @entrolytics/svelte
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://ng.entrolytics.click/logo-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://ng.entrolytics.click/logo-light.svg">
+    <img alt="Entrolytics" src="https://ng.entrolytics.click/logo-light.svg" width="280">
+  </picture>
 
-SvelteKit SDK for [Entrolytics](https://ng.entrolytics.click) - First-party growth analytics for the edge.
+  <h1>@entrolytics/svelte</h1>
+  <p>SvelteKit SDK for Entrolytics - First-party growth analytics for the edge.</p>
+
+  [![npm](https://img.shields.io/npm/v/@entrolytics/svelte.svg?logo=npm)](https://www.npmjs.com/package/@entrolytics/svelte)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![Svelte](https://img.shields.io/badge/Svelte-5+-FF3E00.svg?logo=svelte&logoColor=white)](https://svelte.dev/)
+
+</div>
+
+---
 
 ## Installation
 
