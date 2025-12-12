@@ -1,14 +1,7 @@
 <div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ng.entrolytics.click/logo-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://ng.entrolytics.click/logo-light.svg">
-    <img alt="Entrolytics" src="https://ng.entrolytics.click/logo-light.svg" width="280">
-  </picture>
+  <img src="https://raw.githubusercontent.com/entrolytics/.github/main/media/entrov2.png" alt="Entrolytics" width="64" height="64">
 
-  <h1>@entrolytics/svelte</h1>
-  <p>SvelteKit SDK for Entrolytics - First-party growth analytics for the edge.</p>
-
-  [![npm](https://img.shields.io/npm/v/@entrolytics/svelte.svg?logo=npm)](https://www.npmjs.com/package/@entrolytics/svelte)
+  [![npm](https://img.shields.io/npm/v/@entrolytics/svelte-sdk.svg?logo=npm)](https://www.npmjs.com/package/@entrolytics/svelte-sdk)
   [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
   [![Svelte](https://img.shields.io/badge/Svelte-5+-FF3E00.svg?logo=svelte&logoColor=white)](https://svelte.dev/)
@@ -17,20 +10,80 @@
 
 ---
 
+## Overview
+
+**@entrolytics/svelte-sdk** is the official SvelteKit SDK for Entrolytics - first-party growth analytics for the edge. Add powerful analytics to your Svelte 5 and SvelteKit applications with minimal configuration.
+
+**Why use this SDK?**
+- Zero-config setup with automatic environment detection
+- Svelte actions for declarative click tracking
+- Svelte stores for reactive state management
+- Edge-optimized with sub-50ms response times globally
+
+## Key Features
+
+<table>
+<tr>
+<td width="50%">
+
+### Analytics
+- Automatic page view tracking
+- Custom event tracking
+- User identification
+- SvelteKit navigation support
+
+</td>
+<td width="50%">
+
+### Developer Experience
+- `use:trackClick` Svelte action
+- `$isLoaded` reactive store
+- SvelteKit `$page` store integration
+- Full TypeScript support
+
+</td>
+</tr>
+</table>
+
+## Quick Start
+
+<table>
+<tr>
+<td align="center" width="25%">
+<img src="https://api.iconify.design/lucide:download.svg?color=%236366f1" width="48"><br>
+<strong>1. Install</strong><br>
+<code>npm i @entrolytics/svelte-sdk</code>
+</td>
+<td align="center" width="25%">
+<img src="https://api.iconify.design/lucide:code.svg?color=%236366f1" width="48"><br>
+<strong>2. Initialize</strong><br>
+<code>initEntrolytics()</code>
+</td>
+<td align="center" width="25%">
+<img src="https://api.iconify.design/lucide:settings.svg?color=%236366f1" width="48"><br>
+<strong>3. Configure</strong><br>
+Set Website ID in <code>.env</code>
+</td>
+<td align="center" width="25%">
+<img src="https://api.iconify.design/lucide:bar-chart-3.svg?color=%236366f1" width="48"><br>
+<strong>4. Track</strong><br>
+View analytics in dashboard
+</td>
+</tr>
+</table>
+
 ## Installation
 
 ```bash
-npm install @entrolytics/svelte
+npm install @entrolytics/svelte-sdk
 # or
-pnpm add @entrolytics/svelte
+pnpm add @entrolytics/svelte-sdk
 ```
-
-## Quick Start
 
 ```svelte
 <!-- +layout.svelte -->
 <script>
-  import { initEntrolytics } from '@entrolytics/svelte';
+  import { initEntrolytics } from '@entrolytics/svelte-sdk';
 
   // Zero-config: automatically reads from .env
   initEntrolytics();
