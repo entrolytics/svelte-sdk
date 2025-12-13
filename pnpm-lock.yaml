@@ -12,8 +12,8 @@ importers:
         specifier: 2.3.8
         version: 2.3.8
       svelte:
-        specifier: ^5.45.9
-        version: 5.45.9
+        specifier: ^5.46.0
+        version: 5.46.0
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(typescript@5.9.3)
@@ -545,8 +545,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  svelte@5.45.9:
-    resolution: {integrity: sha512-dehRiT8dmImrEMAx22/h1V54ibH5aEdCH2uywGAw2y2uLMOBhQMBx9KS/9TlfTHIA2/00rHyG/F2IxpLJO9DPQ==}
+  svelte@5.46.0:
+    resolution: {integrity: sha512-ZhLtvroYxUxr+HQJfMZEDRsGsmU46x12RvAv/zi9584f5KOX7bUrEbhPJ7cKFmUvZTJXi/CFZUYwDC6M1FigPw==}
     engines: {node: '>=18'}
 
   thenify-all@1.6.0:
@@ -984,7 +984,7 @@ snapshots:
       tinyglobby: 0.2.15
       ts-interface-checker: 0.1.13
 
-  svelte@5.45.9:
+  svelte@5.46.0:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.5.5
