@@ -95,12 +95,12 @@ pnpm add @entrolytics/svelte-sdk
 Add to your `.env` file:
 
 ```bash
-VITE_ENTROLYTICS_NG_WEBSITE_ID=your-website-id
-VITE_ENTROLYTICS_HOST=https://ng.entrolytics.click
+VITE_ENTROLYTICS_WEBSITE_ID=your-website-id
+VITE_ENTROLYTICS_HOST=https://entrolytics.click
 
 # Or for SvelteKit static
-PUBLIC_ENTROLYTICS_NG_WEBSITE_ID=your-website-id
-PUBLIC_ENTROLYTICS_HOST=https://ng.entrolytics.click
+PUBLIC_ENTROLYTICS_WEBSITE_ID=your-website-id
+PUBLIC_ENTROLYTICS_HOST=https://entrolytics.click
 ```
 
 ## Configuration Options
@@ -121,7 +121,7 @@ initEntrolytics({
   websiteId: 'your-website-id',
 
   // Optional: Custom host (for self-hosted)
-  host: 'https://ng.entrolytics.click',
+  host: 'https://entrolytics.click',
 
   // Optional: Auto-track page views (default: true)
   autoTrack: true,

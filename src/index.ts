@@ -1,12 +1,35 @@
 import { onMount } from 'svelte';
 import { get, type Writable, writable } from 'svelte/store';
 
-const DEFAULT_HOST = 'https://ng.entrolytics.click';
+const DEFAULT_HOST = 'https://entrolytics.click';
 const SCRIPT_ID = 'entrolytics-script';
 
-export interface EventData {
-  [key: string]: string | number | boolean | EventData | string[] | number[] | EventData[];
+/**
+ * Event payload type - mirrors @entrolytics/shared EventPayload
+ * TODO: Import from @entrolytics/shared once published with EventPayload export
+ */
+interface EventPayload {
+  websiteId: string;
+  sessionId: string;
+  visitorId: string;
+  url: string;
+  referrer?: string;
+  eventType: string;
+  eventName?: string;
+  properties?: Record<string, unknown>;
+  screenWidth?: number;
+  screenHeight?: number;
+  loadTime?: number;
+  domInteractive?: number;
+  domComplete?: number;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmTerm?: string;
+  utmContent?: string;
 }
+
+export type EventData = NonNullable<EventPayload['properties']>;
 
 export interface EntrolyticsOptions {
   websiteId: string;
@@ -88,14 +111,14 @@ export function initEntrolytics(options: Partial<EntrolyticsOptions> = {}): void
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const env = (import.meta as any).env || {};
   const websiteId =
-    options.websiteId || env.VITE_ENTROLYTICS_NG_WEBSITE_ID || env.PUBLIC_ENTROLYTICS_NG_WEBSITE_ID;
+    options.websiteId || env.VITE_ENTROLYTICS_WEBSITE_ID || env.PUBLIC_ENTROLYTICS_WEBSITE_ID;
 
   const host = options.host || env.VITE_ENTROLYTICS_HOST || env.PUBLIC_ENTROLYTICS_HOST;
 
   if (!websiteId) {
     if (env.DEV) {
       console.warn(
-        '[@entrolytics/svelte] Missing websiteId. Add VITE_ENTROLYTICS_NG_WEBSITE_ID or PUBLIC_ENTROLYTICS_NG_WEBSITE_ID to your .env file.',
+        '[@entrolytics/svelte] Missing websiteId. Add VITE_ENTROLYTICS_WEBSITE_ID or PUBLIC_ENTROLYTICS_WEBSITE_ID to your .env file.',
       );
     }
     throw new Error('[@entrolytics/svelte] websiteId is required');
@@ -194,7 +217,7 @@ export function trackEvent(eventName: string, eventData?: EventData): void {
       (payload as Record<string, unknown>).tag = currentTag;
     }
 
-    window.entrolytics?.track(eventName, eventData);
+    window.entrolytics?.track(eventName, eventData as Record<string, any>);
   });
 }
 
