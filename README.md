@@ -1,10 +1,10 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/entrolytics/.github/main/media/entrov2.png" alt="Entrolytics" width="64" height="64">
+- <img src="https://raw.githubusercontent.com/entrolytics/.github/main/media/entrov2.png" alt="Entrolytics" width="64" height="64">
 
-  [![npm](https://img.shields.io/npm/v/@entrolytics/svelte-sdk.svg?logo=npm)](https://www.npmjs.com/package/@entrolytics/svelte-sdk)
-  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-  [![Svelte](https://img.shields.io/badge/Svelte-5+-FF3E00.svg?logo=svelte&logoColor=white)](https://svelte.dev/)
+[![npm](https://img.shields.io/npm/v/@entrolytics/svelte-sdk.svg?logo=npm)](https://www.npmjs.com/package/@entrolytics/svelte-sdk)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg?logo=typescript\&logoColor=white)](https://www.typescriptlang.org/)
+[![Svelte](https://img.shields.io/badge/Svelte-5+-FF3E00.svg?logo=svelte\&logoColor=white)](https://svelte.dev/)
 
 </div>
 
@@ -15,6 +15,7 @@
 **@entrolytics/svelte-sdk** is the official SvelteKit SDK for Entrolytics - first-party growth analytics for the edge. Add powerful analytics to your Svelte 5 and SvelteKit applications with minimal configuration.
 
 **Why use this SDK?**
+
 - Zero-config setup with automatic environment detection
 - Svelte actions for declarative click tracking
 - Svelte stores for reactive state management
@@ -27,6 +28,7 @@
 <td width="50%">
 
 ### Analytics
+
 - Automatic page view tracking
 - Custom event tracking
 - User identification
@@ -36,6 +38,7 @@
 <td width="50%">
 
 ### Developer Experience
+
 - `use:trackClick` Svelte action
 - `$isLoaded` reactive store
 - SvelteKit `$page` store integration
@@ -76,7 +79,9 @@ View analytics in dashboard
 
 ```bash
 npm install @entrolytics/svelte-sdk
+
 # or
+
 pnpm add @entrolytics/svelte-sdk
 ```
 
@@ -99,6 +104,7 @@ VITE_ENTROLYTICS_WEBSITE_ID=your-website-id
 VITE_ENTROLYTICS_HOST=https://entrolytics.click
 
 # Or for SvelteKit static
+
 PUBLIC_ENTROLYTICS_WEBSITE_ID=your-website-id
 PUBLIC_ENTROLYTICS_HOST=https://entrolytics.click
 ```
@@ -146,13 +152,13 @@ The `useEdgeRuntime` option controls which collection endpoint is used:
 ```ts
 initEntrolytics({
   websiteId: 'your-website-id',
-  useEdgeRuntime: true // or omit (default)
+  useEdgeRuntime: true, // or omit (default)
 });
 ```
 
 - **Latency**: Sub-50ms response times globally
 - **Best for**: Production Svelte/SvelteKit apps, globally distributed users
-- **Endpoint**: Uses `/api/send-native` for edge-to-edge communication
+- **Tracker Bundle**: Loads `/script-edge.js` (edge-optimized)
 - **Limitations**: No ClickHouse export, basic geo data
 
 **Node.js Runtime** - Full-featured with advanced capabilities:
@@ -160,16 +166,17 @@ initEntrolytics({
 ```ts
 initEntrolytics({
   websiteId: 'your-website-id',
-  useEdgeRuntime: false
+  useEdgeRuntime: false,
 });
 ```
 
 - **Features**: ClickHouse export, MaxMind GeoIP (city-level accuracy)
 - **Best for**: Self-hosted deployments, advanced analytics requirements
-- **Endpoint**: Uses `/api/send` for Node.js runtime
+- **Tracker Bundle**: Loads `/script.js` (standard runtime)
 - **Latency**: 50-150ms (regional)
 
 **When to use Node.js runtime**:
+
 - Self-hosted Svelte/SvelteKit deployments without edge runtime support
 - Applications requiring ClickHouse data export
 - Need for advanced geo-targeting with MaxMind
