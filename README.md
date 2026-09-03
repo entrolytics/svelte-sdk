@@ -3,8 +3,8 @@
 
 [![npm](https://img.shields.io/npm/v/@entrolytics/svelte-sdk.svg?logo=npm)](https://www.npmjs.com/package/@entrolytics/svelte-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg?logo=typescript\&logoColor=white)](https://www.typescriptlang.org/)
-[![Svelte](https://img.shields.io/badge/Svelte-5+-FF3E00.svg?logo=svelte\&logoColor=white)](https://svelte.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Svelte](https://img.shields.io/badge/Svelte-5+-FF3E00.svg?logo=svelte&logoColor=white)](https://svelte.dev/)
 
 </div>
 
@@ -124,63 +124,23 @@ PUBLIC_ENTROLYTICS_HOST=https://entrolytics.click
 ```ts
 initEntrolytics({
   // Required: Your Entrolytics website ID
-  websiteId: 'your-website-id',
+  websiteId: "your-website-id",
 
   // Optional: Custom host (for self-hosted)
-  host: 'https://entrolytics.click',
+  host: "https://entrolytics.click",
 
   // Optional: Auto-track page views (default: true)
   autoTrack: true,
-
-  // Optional: Use edge-optimized endpoints (default: true)
-  useEdgeRuntime: true,
 
   // Optional: Respect Do Not Track (default: false)
   respectDnt: false,
 
   // Optional: Cross-domain tracking
-  domains: ['example.com', 'blog.example.com'],
+  domains: ["example.com", "blog.example.com"],
 });
 ```
 
-### Runtime Configuration
-
-The `useEdgeRuntime` option controls which collection endpoint is used:
-
-**Edge Runtime (default)** - Optimized for speed and global distribution:
-
-```ts
-initEntrolytics({
-  websiteId: 'your-website-id',
-  useEdgeRuntime: true, // or omit (default)
-});
-```
-
-- **Latency**: Sub-50ms response times globally
-- **Best for**: Production Svelte/SvelteKit apps, globally distributed users
-- **Tracker Bundle**: Loads `/script-edge.js` (edge-optimized)
-- **Limitations**: No ClickHouse export, basic geo data
-
-**Node.js Runtime** - Full-featured with advanced capabilities:
-
-```ts
-initEntrolytics({
-  websiteId: 'your-website-id',
-  useEdgeRuntime: false,
-});
-```
-
-- **Features**: ClickHouse export, MaxMind GeoIP (city-level accuracy)
-- **Best for**: Self-hosted deployments, advanced analytics requirements
-- **Tracker Bundle**: Loads `/script.js` (standard runtime)
-- **Latency**: 50-150ms (regional)
-
-**When to use Node.js runtime**:
-
-- Self-hosted Svelte/SvelteKit deployments without edge runtime support
-- Applications requiring ClickHouse data export
-- Need for advanced geo-targeting with MaxMind
-- Custom server-side analytics workflows
+The integration loads the canonical `/script.js` tracker from the configured host.
 
 ## Tracking Events
 
@@ -283,7 +243,7 @@ Check if the tracking script is loaded:
 Full TypeScript support with exported types:
 
 ```ts
-import type { EntrolyticsOptions } from '@entrolytics/svelte';
+import type { EntrolyticsOptions } from "@entrolytics/svelte";
 ```
 
 ## License

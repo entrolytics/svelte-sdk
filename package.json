@@ -50,30 +50,24 @@
     "lint:check": "vp lint . && vp fmt --check .",
     "lint:fix-unsafe": "vp lint -f stylish --import-plugin --type-aware --type-check --fix --fix-suggestions --fix-dangerously src/",
     "prepublishOnly": "vp run build",
-    "typecheck": "tsgo --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@entrolytics/shared": "^2.4.0"
+    "@entrolytics/shared": "^2.4.2"
   },
   "devDependencies": {
-    "svelte": "^5.55.0",
-    "typescript": "^6.0.2",
-    "vite-plus": "latest"
+    "svelte": "^5.56.8",
+    "typescript": "^7.0.2",
+    "vite-plus": "^0.2.8"
   },
   "peerDependencies": {
     "svelte": ">=5.51.2"
   },
   "optionalDependencies": {
-    "web-vitals": "^5.2.0"
+    "web-vitals": "^6.1.0"
   },
   "engines": {
-    "node": ">=24.x"
+    "node": ">=24.19.0"
   },
-  "packageManager": "pnpm@10.33.0",
-  "pnpm": {
-    "overrides": {
-      "vite": "npm:@voidzero-dev/vite-plus-core@latest",
-      "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
-    }
-  }
+  "packageManager": "pnpm@11.21.0"
 }
