@@ -42,7 +42,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "vp pack",
+    "build": "vp pack && tsc --emitDeclarationOnly --noEmit false",
     "check": "vp check",
     "dev": "vp pack --watch",
     "format": "vp fmt --write .",
@@ -58,7 +58,8 @@
   "devDependencies": {
     "svelte": "^5.57.0",
     "typescript": "next",
-    "vite-plus": "^0.3.1"
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
   },
   "peerDependencies": {
     "svelte": ">=5.51.2"

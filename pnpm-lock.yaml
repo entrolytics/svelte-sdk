@@ -4,13 +4,25 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    vite:
+      specifier: npm:@voidzero-dev/vite-plus-core@0.3.1
+      version: 0.3.1
+    vite-plus:
+      specifier: 0.3.1
+      version: 0.3.1
+
+overrides:
+  vite@*: npm:@voidzero-dev/vite-plus-core@0.3.1
+
 importers:
 
   .:
     dependencies:
       '@entrolytics/shared':
-        specifier: ^2.4.2
-        version: 2.4.2
+        specifier: ^3.0.0
+        version: 3.0.0
     devDependencies:
       svelte:
         specifier: ^5.57.0
@@ -18,8 +30,11 @@ importers:
       typescript:
         specifier: next
         version: 7.1.0-dev.20260908.1
+      vite:
+        specifier: 'catalog:'
+        version: '@voidzero-dev/vite-plus-core@0.3.1(typescript@7.1.0-dev.20260908.1)'
       vite-plus:
-        specifier: ^0.3.1
+        specifier: 'catalog:'
         version: 0.3.1(svelte@5.57.0)(typescript@7.1.0-dev.20260908.1)
     optionalDependencies:
       web-vitals:
@@ -43,8 +58,8 @@ packages:
   '@blazediff/core@1.9.1':
     resolution: {integrity: sha512-ehg3jIkYKulZh+8om/O25vkvSsXXwC+skXmyA87FFx6A/45eqOkZsBltMw/TVteb0mloiGT8oGRTcjRAz66zaA==}
 
-  '@entrolytics/shared@2.4.2':
-    resolution: {integrity: sha512-fSgdPm0wgdiSs1FPr8SozLYX/JwMcm3034Gw+g2DIqYrMIZ419a8DAXh92nXWUxjSwb0psk3p25r3LUUPuv+eQ==}
+  '@entrolytics/shared@3.0.0':
+    resolution: {integrity: sha512-9JwCk8Ecp6Q0jvjw8nhkfmdmXU6P7J3aglR9sL3HDOTYacmo6+5yWbQJw4w8TNR8YG2ZB94jHzhhb0uszSJcMQ==}
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -1100,7 +1115,7 @@ snapshots:
 
   '@blazediff/core@1.9.1': {}
 
-  '@entrolytics/shared@2.4.2': {}
+  '@entrolytics/shared@3.0.0': {}
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
