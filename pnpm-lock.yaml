@@ -21,8 +21,8 @@ importers:
   .:
     dependencies:
       '@entrolytics/shared':
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
     devDependencies:
       svelte:
         specifier: ^5.57.0
@@ -58,8 +58,8 @@ packages:
   '@blazediff/core@1.9.1':
     resolution: {integrity: sha512-ehg3jIkYKulZh+8om/O25vkvSsXXwC+skXmyA87FFx6A/45eqOkZsBltMw/TVteb0mloiGT8oGRTcjRAz66zaA==}
 
-  '@entrolytics/shared@3.0.0':
-    resolution: {integrity: sha512-9JwCk8Ecp6Q0jvjw8nhkfmdmXU6P7J3aglR9sL3HDOTYacmo6+5yWbQJw4w8TNR8YG2ZB94jHzhhb0uszSJcMQ==}
+  '@entrolytics/shared@3.0.1':
+    resolution: {integrity: sha512-7IfuT0fYHcM3rXdmBIQ63+9uF7KXyus0vha1Cvt6Z/fn80yhbizJ/z846XMxc9irHVcHsSmyf8gW/Fjk40KYig==}
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -1115,7 +1115,7 @@ snapshots:
 
   '@blazediff/core@1.9.1': {}
 
-  '@entrolytics/shared@3.0.0': {}
+  '@entrolytics/shared@3.0.1': {}
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
