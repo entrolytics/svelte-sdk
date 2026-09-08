@@ -1,6 +1,6 @@
 {
   "name": "@entrolytics/svelte-sdk",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "SvelteKit integration for Entrolytics - First-party growth analytics for the edge",
   "keywords": [
     "analytics",
@@ -53,21 +53,21 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@entrolytics/shared": "^2.4.2"
+    "@entrolytics/shared": "^3.0.0"
   },
   "devDependencies": {
-    "svelte": "^5.56.8",
-    "typescript": "^7.0.2",
-    "vite-plus": "^0.2.8"
+    "svelte": "^5.57.0",
+    "typescript": "next",
+    "vite-plus": "^0.3.1"
   },
   "peerDependencies": {
     "svelte": ">=5.51.2"
   },
   "optionalDependencies": {
-    "web-vitals": "^6.1.0"
+    "web-vitals": "^6.2.1"
   },
   "engines": {
-    "node": ">=24.19.0"
+    "node": ">=24.20.0"
   },
-  "packageManager": "pnpm@11.21.0"
+  "packageManager": "pnpm@11.26.0"
 }
