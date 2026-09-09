@@ -42,24 +42,25 @@
     "access": "public"
   },
   "scripts": {
-    "build": "vp pack && tsc --emitDeclarationOnly --noEmit false",
-    "check": "vp check",
-    "dev": "vp pack --watch",
-    "format": "vp fmt --write .",
-    "lint": "vp lint --fix . && vp fmt --write .",
-    "lint:check": "vp lint . && vp fmt --check .",
-    "lint:fix-unsafe": "vp lint -f stylish --import-plugin --type-aware --type-check --fix --fix-suggestions --fix-dangerously src/",
-    "prepublishOnly": "vp run build",
+    "build": "tsdown && tsc --emitDeclarationOnly --noEmit false",
+    "check": "tsc --noEmit",
+    "dev": "tsdown --watch",
+    "format": "oxfmt --write .",
+    "lint": "oxlint --fix . && oxfmt --write .",
+    "lint:check": "oxlint . && oxfmt --check .",
+    "lint:fix-unsafe": "oxlint -f stylish --import-plugin --type-aware --type-check --fix --fix-suggestions --fix-dangerously src/",
+    "prepublishOnly": "pnpm build",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@entrolytics/shared": "^3.0.1"
   },
   "devDependencies": {
+    "oxfmt": "^0.67.0",
+    "oxlint": "^1.82.0",
     "svelte": "^5.57.0",
-    "typescript": "next",
-    "vite": "catalog:",
-    "vite-plus": "catalog:"
+    "tsdown": "^0.23.0",
+    "typescript": "next"
   },
   "peerDependencies": {
     "svelte": ">=5.51.2"
