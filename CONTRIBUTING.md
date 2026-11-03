@@ -17,7 +17,7 @@ Please read the main [Contributing Guide](../CONTRIBUTING.md) in the root of thi
 
 ### Directory Structure
 
-```
+```tree
 entro-svelte/
 ├── src/          # Source code
 

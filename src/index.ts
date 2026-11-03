@@ -1,18 +1,18 @@
-import { API_ROUTES } from "@entrolytics/shared";
+import { API_ROUTES } from '@entrolytics/shared';
 import type {
   EventPayload as SharedEventPayload,
   FormEventType,
   NavigationType,
   VitalRating,
   VitalType,
-} from "@entrolytics/shared";
-import { onMount } from "svelte";
-import { type Writable, writable } from "svelte/store";
+} from '@entrolytics/shared';
+import { onMount } from 'svelte';
+import { type Writable, writable } from 'svelte/store';
 
-const DEFAULT_HOST = "https://api.entrolytics.click";
-const SCRIPT_ID = "entrolytics-script";
+const DEFAULT_HOST = 'https://api.entrolytics.dev';
+const SCRIPT_ID = 'entrolytics-script';
 
-export type EventData = NonNullable<SharedEventPayload["properties"]>;
+export type EventData = NonNullable<SharedEventPayload['properties']>;
 
 export interface EntrolyticsOptions {
   websiteId: string;
@@ -48,7 +48,7 @@ let currentOptions: EntrolyticsOptions | null = null;
 let currentTag: string | undefined;
 
 function waitForTracker(callback: () => void): void {
-  if (typeof window === "undefined") return;
+  if (typeof window === 'undefined') return;
 
   const tryExecute = () => {
     if (window.entrolytics) {
@@ -85,7 +85,7 @@ function waitForTracker(callback: () => void): void {
  * ```
  */
 export function initEntrolytics(options: Partial<EntrolyticsOptions> = {}): void {
-  if (typeof window === "undefined") return;
+  if (typeof window === 'undefined') return;
   if (initialized) return;
 
   // Auto-read from environment variables (SvelteKit)
@@ -99,10 +99,10 @@ export function initEntrolytics(options: Partial<EntrolyticsOptions> = {}): void
   if (!websiteId) {
     if (env.DEV) {
       console.warn(
-        "[@entrolytics/svelte] Missing websiteId. Add VITE_ENTROLYTICS_WEBSITE_ID or PUBLIC_ENTROLYTICS_WEBSITE_ID to your .env file.",
+        '[@entrolytics/svelte] Missing websiteId. Add VITE_ENTROLYTICS_WEBSITE_ID or PUBLIC_ENTROLYTICS_WEBSITE_ID to your .env file.',
       );
     }
-    throw new Error("[@entrolytics/svelte] websiteId is required");
+    throw new Error('[@entrolytics/svelte] websiteId is required');
   }
 
   const finalOptions: EntrolyticsOptions = {
@@ -132,30 +132,30 @@ export function initEntrolytics(options: Partial<EntrolyticsOptions> = {}): void
     return;
   }
 
-  const script = document.createElement("script");
+  const script = document.createElement('script');
   script.id = SCRIPT_ID;
 
-  script.src = `${finalHost.replace(/\/$/, "")}/script.js`;
+  script.src = `${finalHost.replace(/\/$/, '')}/script.js`;
   script.defer = true;
   script.dataset.websiteId = finalWebsiteId;
 
   if (!autoTrack) {
-    script.dataset.autoTrack = "false";
+    script.dataset.autoTrack = 'false';
   }
   if (respectDnt) {
-    script.dataset.doNotTrack = "true";
+    script.dataset.doNotTrack = 'true';
   }
   if (domains && domains.length > 0) {
-    script.dataset.domains = domains.join(",");
+    script.dataset.domains = domains.join(',');
   }
   if (tag) {
     script.dataset.tag = tag;
   }
   if (excludeSearch) {
-    script.dataset.excludeSearch = "true";
+    script.dataset.excludeSearch = 'true';
   }
   if (excludeHash) {
-    script.dataset.excludeHash = "true";
+    script.dataset.excludeHash = 'true';
   }
 
   script.onload = () => {
@@ -187,7 +187,7 @@ export function trackEvent(eventName: string, eventData?: EventData): void {
     let payload: unknown = { name: eventName, data: eventData };
 
     if (currentOptions?.beforeSend) {
-      payload = currentOptions.beforeSend("event", payload);
+      payload = currentOptions.beforeSend('event', payload);
       if (payload === null) return;
     }
 
@@ -220,7 +220,7 @@ export function trackEvent(eventName: string, eventData?: EventData): void {
 export function trackRevenue(
   eventName: string,
   revenue: number,
-  currency = "USD",
+  currency = 'USD',
   data?: EventData,
 ): void {
   waitForTracker(() => {
@@ -254,7 +254,7 @@ export function trackRevenue(
  */
 export function trackOutboundLink(url: string, data?: EventData): void {
   waitForTracker(() => {
-    window.entrolytics?.track("outbound-link-click", {
+    window.entrolytics?.track('outbound-link-click', {
       ...data,
       url,
     });
@@ -339,14 +339,14 @@ export function trackClick(node: HTMLElement, params: { event: string; data?: Ev
     trackEvent(params.event, params.data);
   };
 
-  node.addEventListener("click", handleClick);
+  node.addEventListener('click', handleClick);
 
   return {
     update(newParams: { event: string; data?: EventData }) {
       params = newParams;
     },
     destroy() {
-      node.removeEventListener("click", handleClick);
+      node.removeEventListener('click', handleClick);
     },
   };
 }
@@ -369,14 +369,14 @@ export function outboundLink(node: HTMLAnchorElement, params?: { data?: EventDat
     }
   };
 
-  node.addEventListener("click", handleClick);
+  node.addEventListener('click', handleClick);
 
   return {
     update(newParams?: { data?: EventData }) {
       params = newParams;
     },
     destroy() {
-      node.removeEventListener("click", handleClick);
+      node.removeEventListener('click', handleClick);
     },
   };
 }
@@ -399,15 +399,15 @@ export function outboundLink(node: HTMLAnchorElement, params?: { data?: EventDat
 export function usePageView(pageStore: {
   subscribe: (fn: (value: { url: URL }) => void) => () => void;
 }): void {
-  let lastPath = "";
+  let lastPath = '';
 
   onMount(() => {
-    const unsubscribe = pageStore.subscribe(($page) => {
+    const unsubscribe = pageStore.subscribe($page => {
       const currentPath = $page.url.pathname;
       if (currentPath !== lastPath) {
         lastPath = currentPath;
         // First page view is handled by auto-track
-        if (lastPath !== "") {
+        if (lastPath !== '') {
           trackPageView(currentPath);
         }
       }
@@ -436,7 +436,7 @@ export interface WebVitalData {
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 /**
@@ -459,7 +459,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
  * ```
  */
 export async function trackVital(data: WebVitalData): Promise<void> {
-  if (typeof window === "undefined" || !currentOptions) return;
+  if (typeof window === 'undefined' || !currentOptions) return;
 
   const payload = {
     websiteId: currentOptions.websiteId,
@@ -478,13 +478,13 @@ export async function trackVital(data: WebVitalData): Promise<void> {
 
   try {
     await fetch(`${host}${API_ROUTES.collectVitals}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
       keepalive: true,
     });
   } catch (err) {
-    console.error("[Entrolytics] Failed to track vital:", err);
+    console.error('[Entrolytics] Failed to track vital:', err);
   }
 }
 
@@ -505,14 +505,14 @@ export async function trackVital(data: WebVitalData): Promise<void> {
  * ```
  */
 export async function initWebVitals(): Promise<void> {
-  if (typeof window === "undefined") return;
+  if (typeof window === 'undefined') return;
 
   try {
-    const { onCLS, onINP, onLCP, onFCP, onTTFB } = await import("web-vitals/attribution");
+    const { onCLS, onINP, onLCP, onFCP, onTTFB } = await import('web-vitals/attribution');
 
-    onLCP((m) =>
+    onLCP(m =>
       trackVital({
-        metric: "LCP",
+        metric: 'LCP',
         value: m.value,
         rating: m.rating,
         delta: m.delta,
@@ -522,9 +522,9 @@ export async function initWebVitals(): Promise<void> {
       }),
     );
 
-    onINP((m) =>
+    onINP(m =>
       trackVital({
-        metric: "INP",
+        metric: 'INP',
         value: m.value,
         rating: m.rating,
         delta: m.delta,
@@ -534,9 +534,9 @@ export async function initWebVitals(): Promise<void> {
       }),
     );
 
-    onCLS((m) =>
+    onCLS(m =>
       trackVital({
-        metric: "CLS",
+        metric: 'CLS',
         value: m.value,
         rating: m.rating,
         delta: m.delta,
@@ -546,9 +546,9 @@ export async function initWebVitals(): Promise<void> {
       }),
     );
 
-    onFCP((m) =>
+    onFCP(m =>
       trackVital({
-        metric: "FCP",
+        metric: 'FCP',
         value: m.value,
         rating: m.rating,
         delta: m.delta,
@@ -558,9 +558,9 @@ export async function initWebVitals(): Promise<void> {
       }),
     );
 
-    onTTFB((m) =>
+    onTTFB(m =>
       trackVital({
-        metric: "TTFB",
+        metric: 'TTFB',
         value: m.value,
         rating: m.rating as WebVitalRating,
         delta: m.delta,
@@ -570,7 +570,7 @@ export async function initWebVitals(): Promise<void> {
       }),
     );
   } catch {
-    console.debug("[Entrolytics] web-vitals not installed. Use trackVital() for manual tracking.");
+    console.debug('[Entrolytics] web-vitals not installed. Use trackVital() for manual tracking.');
   }
 }
 
@@ -614,7 +614,7 @@ export interface FormEventData {
  * ```
  */
 export async function trackFormEvent(data: FormEventData): Promise<void> {
-  if (typeof window === "undefined" || !currentOptions) return;
+  if (typeof window === 'undefined' || !currentOptions) return;
 
   const host = currentOptions.host || DEFAULT_HOST;
 
@@ -635,13 +635,13 @@ export async function trackFormEvent(data: FormEventData): Promise<void> {
 
   try {
     await fetch(`${host}${API_ROUTES.collectForms}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
       keepalive: true,
     });
   } catch (err) {
-    console.error("[Entrolytics] Failed to track form event:", err);
+    console.error('[Entrolytics] Failed to track form event:', err);
   }
 }
 
@@ -677,17 +677,17 @@ export function createFormTracker(formId: string, formName?: string) {
   return {
     trackStart: () => {
       startTime = Date.now();
-      void trackFormEvent({ eventType: "start", formId, formName });
+      void trackFormEvent({ eventType: 'start', formId, formName });
     },
 
     trackFieldFocus: (fieldName: string, fieldType?: string, fieldIndex?: number) => {
       if (!startTime) {
         startTime = Date.now();
-        void trackFormEvent({ eventType: "start", formId, formName });
+        void trackFormEvent({ eventType: 'start', formId, formName });
       }
       fieldStartTimes.set(fieldName, Date.now());
       void trackFormEvent({
-        eventType: "field_focus",
+        eventType: 'field_focus',
         formId,
         formName,
         fieldName,
@@ -700,7 +700,7 @@ export function createFormTracker(formId: string, formName?: string) {
     trackFieldBlur: (fieldName: string, fieldType?: string, fieldIndex?: number) => {
       const fieldStart = fieldStartTimes.get(fieldName);
       void trackFormEvent({
-        eventType: "field_blur",
+        eventType: 'field_blur',
         formId,
         formName,
         fieldName,
@@ -718,7 +718,7 @@ export function createFormTracker(formId: string, formName?: string) {
       fieldIndex?: number,
     ) => {
       void trackFormEvent({
-        eventType: "field_error",
+        eventType: 'field_error',
         formId,
         formName,
         fieldName,
@@ -731,7 +731,7 @@ export function createFormTracker(formId: string, formName?: string) {
 
     trackSubmit: (success: boolean) => {
       void trackFormEvent({
-        eventType: "submit",
+        eventType: 'submit',
         formId,
         formName,
         success,
@@ -743,7 +743,7 @@ export function createFormTracker(formId: string, formName?: string) {
 
     trackAbandon: () => {
       void trackFormEvent({
-        eventType: "abandon",
+        eventType: 'abandon',
         formId,
         formName,
         timeSinceStart: startTime ? Date.now() - startTime : undefined,
@@ -810,20 +810,20 @@ export function trackForm(node: HTMLFormElement, params: { formId: string; formN
     }
   };
 
-  node.addEventListener("focusin", handleFocus);
-  node.addEventListener("focusout", handleBlur);
-  node.addEventListener("submit", handleSubmit);
-  window.addEventListener("beforeunload", handleBeforeUnload);
+  node.addEventListener('focusin', handleFocus);
+  node.addEventListener('focusout', handleBlur);
+  node.addEventListener('submit', handleSubmit);
+  window.addEventListener('beforeunload', handleBeforeUnload);
 
   return {
     update(newParams: { formId: string; formName?: string }) {
       params = newParams;
     },
     destroy() {
-      node.removeEventListener("focusin", handleFocus);
-      node.removeEventListener("focusout", handleBlur);
-      node.removeEventListener("submit", handleSubmit);
-      window.removeEventListener("beforeunload", handleBeforeUnload);
+      node.removeEventListener('focusin', handleFocus);
+      node.removeEventListener('focusout', handleBlur);
+      node.removeEventListener('submit', handleSubmit);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
     },
   };
 }

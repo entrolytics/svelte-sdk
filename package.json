@@ -10,12 +10,12 @@
     "tracking",
     "web-analytics"
   ],
-  "homepage": "https://entrolytics.click",
+  "homepage": "https://entrolytics.dev",
   "bugs": {
     "url": "https://github.com/entrolytics/svelte-sdk/issues"
   },
   "license": "MIT",
-  "author": "Entrolytics <hey@entrolytics.click>",
+  "author": "Entrolytics <hey@entrolytics.dev>",
   "repository": {
     "type": "git",
     "url": "https://github.com/entrolytics/svelte-sdk",
@@ -53,23 +53,23 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@entrolytics/shared": "^3.0.1"
+    "@entrolytics/shared": "^3.1.0"
   },
   "devDependencies": {
-    "oxfmt": "^0.67.0",
-    "oxlint": "^1.82.0",
-    "svelte": "^5.57.0",
-    "tsdown": "^0.23.0",
+    "oxfmt": "^0.76.0",
+    "oxlint": "^1.91.0",
+    "svelte": "^5.57.3",
+    "tsdown": "^0.23.5",
     "typescript": "next"
   },
   "peerDependencies": {
     "svelte": ">=5.51.2"
   },
   "optionalDependencies": {
-    "web-vitals": "^6.2.1"
+    "web-vitals": "^6.2.3"
   },
   "engines": {
-    "node": ">=24.20.0"
+    "node": ">=24.22.2"
   },
-  "packageManager": "pnpm@11.26.0"
+  "packageManager": "pnpm@12.17.0"
 }

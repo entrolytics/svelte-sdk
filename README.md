@@ -101,12 +101,12 @@ Add to your `.env` file:
 
 ```bash
 VITE_ENTROLYTICS_WEBSITE_ID=your-website-id
-VITE_ENTROLYTICS_HOST=https://entrolytics.click
+VITE_ENTROLYTICS_HOST=https://entrolytics.dev
 
 # Or for SvelteKit static
 
 PUBLIC_ENTROLYTICS_WEBSITE_ID=your-website-id
-PUBLIC_ENTROLYTICS_HOST=https://entrolytics.click
+PUBLIC_ENTROLYTICS_HOST=https://entrolytics.dev
 ```
 
 ## Configuration Options
@@ -124,10 +124,10 @@ PUBLIC_ENTROLYTICS_HOST=https://entrolytics.click
 ```ts
 initEntrolytics({
   // Required: Your Entrolytics website ID
-  websiteId: "your-website-id",
+  websiteId: 'your-website-id',
 
   // Optional: Custom host (for self-hosted)
-  host: "https://entrolytics.click",
+  host: 'https://entrolytics.dev',
 
   // Optional: Auto-track page views (default: true)
   autoTrack: true,
@@ -136,7 +136,7 @@ initEntrolytics({
   respectDnt: false,
 
   // Optional: Cross-domain tracking
-  domains: ["example.com", "blog.example.com"],
+  domains: ['example.com', 'blog.example.com'],
 });
 ```
 
@@ -243,7 +243,7 @@ Check if the tracking script is loaded:
 Full TypeScript support with exported types:
 
 ```ts
-import type { EntrolyticsOptions } from "@entrolytics/svelte";
+import type { EntrolyticsOptions } from '@entrolytics/svelte';
 ```
 
 ## License
