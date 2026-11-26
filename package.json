@@ -53,13 +53,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@entrolytics/shared": "^3.1.0"
+    "@entrolytics/shared": "^3.2.0"
   },
   "devDependencies": {
-    "oxfmt": "^0.76.0",
-    "oxlint": "^1.91.0",
-    "svelte": "^5.57.3",
-    "tsdown": "^0.23.5",
+    "oxfmt": "^0.80.0",
+    "oxlint": "^1.95.0",
+    "svelte": "^5.59.2",
+    "tsdown": "^0.23.7",
     "typescript": "next"
   },
   "peerDependencies": {
@@ -69,7 +69,7 @@
     "web-vitals": "^6.2.3"
   },
   "engines": {
-    "node": ">=24.22.2"
+    "node": ">=24.22.3"
   },
-  "packageManager": "pnpm@12.17.0"
+  "packageManager": "pnpm@12.23.0"
 }
