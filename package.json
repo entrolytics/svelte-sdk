@@ -53,7 +53,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@entrolytics/shared": "^3.2.0"
+    "@entrolytics/shared": "^3.2.1"
   },
   "devDependencies": {
     "oxfmt": "^0.80.0",
