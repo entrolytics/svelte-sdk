@@ -65,7 +65,7 @@
 <td align="center" width="25%">
 <img src="https://api.iconify.design/lucide:settings.svg?color=%236366f1" width="48"><br>
 <strong>3. Configure</strong><br>
-Set Website ID in <code>.env</code>
+Set Website ID and client key in <code>.env</code>
 </td>
 <td align="center" width="25%">
 <img src="https://api.iconify.design/lucide:bar-chart-3.svg?color=%236366f1" width="48"><br>
@@ -101,13 +101,18 @@ Add to your `.env` file:
 
 ```bash
 VITE_ENTROLYTICS_WEBSITE_ID=your-website-id
+VITE_ENTROLYTICS_CLIENT_KEY=your-public-client-key
 VITE_ENTROLYTICS_HOST=https://entrolytics.dev
 
 # Or for SvelteKit static
 
 PUBLIC_ENTROLYTICS_WEBSITE_ID=your-website-id
+PUBLIC_ENTROLYTICS_CLIENT_KEY=your-public-client-key
 PUBLIC_ENTROLYTICS_HOST=https://entrolytics.dev
 ```
+
+Both the website ID and the client key are required: the tracker script sends nothing without the
+client key.
 
 ## Configuration Options
 
@@ -126,6 +131,9 @@ initEntrolytics({
   // Required: Your Entrolytics website ID
   websiteId: 'your-website-id',
 
+  // Required: Your website's public client key
+  clientKey: 'your-public-client-key',
+
   // Optional: Custom host (for self-hosted)
   host: 'https://entrolytics.dev',
 
@@ -141,6 +149,11 @@ initEntrolytics({
 ```
 
 The integration loads the canonical `/script.js` tracker from the configured host.
+
+## Web Vitals
+
+The tracker script reports Core Web Vitals (LCP, INP, CLS, FCP, TTFB) automatically when
+`autoTrack` is on. There is nothing to call.
 
 ## Tracking Events
 
@@ -185,7 +198,7 @@ Use the Svelte action for declarative click tracking:
   import { page } from '$app/stores';
   import { initEntrolytics, usePageView } from '@entrolytics/svelte';
 
-  initEntrolytics({ websiteId: 'your-website-id' });
+  initEntrolytics({ websiteId: 'your-website-id', clientKey: 'your-public-client-key' });
   usePageView(page);
 </script>
 

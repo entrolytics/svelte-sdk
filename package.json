@@ -50,6 +50,7 @@
     "lint:check": "oxlint . && oxfmt --check .",
     "lint:fix-unsafe": "oxlint -f stylish --import-plugin --type-aware --type-check --fix --fix-suggestions --fix-dangerously src/",
     "prepublishOnly": "pnpm build",
+    "test": "node --test 'src/**/*.test.ts'",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -64,9 +65,6 @@
   },
   "peerDependencies": {
     "svelte": ">=5.51.2"
-  },
-  "optionalDependencies": {
-    "web-vitals": "^6.2.3"
   },
   "engines": {
     "node": ">=24.22.3"

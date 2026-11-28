@@ -1,11 +1,5 @@
 import { API_ROUTES } from '@entrolytics/shared';
-import type {
-  EventPayload as SharedEventPayload,
-  FormEventType,
-  NavigationType,
-  VitalRating,
-  VitalType,
-} from '@entrolytics/shared';
+import type { EventPayload as SharedEventPayload, FormEventType } from '@entrolytics/shared';
 import { onMount } from 'svelte';
 import { type Writable, writable } from 'svelte/store';
 
@@ -16,6 +10,8 @@ export type EventData = NonNullable<SharedEventPayload['properties']>;
 
 export interface EntrolyticsOptions {
   websiteId: string;
+  /** Public client key of the website; the tracker script sends nothing without it */
+  clientKey: string;
   host?: string;
   autoTrack?: boolean;
   respectDnt?: boolean;
@@ -80,7 +76,7 @@ function waitForTracker(callback: () => void): void {
  * ```svelte
  * <script>
  *   import { initEntrolytics } from '@entrolytics/svelte';
- *   initEntrolytics({ websiteId: 'your-website-id' });
+ *   initEntrolytics({ websiteId: 'your-website-id', clientKey: 'your-public-client-key' });
  * </script>
  * ```
  */
@@ -105,9 +101,22 @@ export function initEntrolytics(options: Partial<EntrolyticsOptions> = {}): void
     throw new Error('[@entrolytics/svelte] websiteId is required');
   }
 
+  const clientKey =
+    options.clientKey || env.VITE_ENTROLYTICS_CLIENT_KEY || env.PUBLIC_ENTROLYTICS_CLIENT_KEY;
+
+  if (!clientKey) {
+    if (env.DEV) {
+      console.warn(
+        '[@entrolytics/svelte] Missing clientKey. Add VITE_ENTROLYTICS_CLIENT_KEY or PUBLIC_ENTROLYTICS_CLIENT_KEY to your .env file.',
+      );
+    }
+    throw new Error('[@entrolytics/svelte] clientKey is required');
+  }
+
   const finalOptions: EntrolyticsOptions = {
     ...options,
     websiteId,
+    clientKey,
     host: host || DEFAULT_HOST,
   } as EntrolyticsOptions;
 
@@ -117,6 +126,7 @@ export function initEntrolytics(options: Partial<EntrolyticsOptions> = {}): void
 
   const {
     websiteId: finalWebsiteId,
+    clientKey: finalClientKey,
     host: finalHost = DEFAULT_HOST,
     autoTrack = true,
     respectDnt = false,
@@ -138,6 +148,7 @@ export function initEntrolytics(options: Partial<EntrolyticsOptions> = {}): void
   script.src = `${finalHost.replace(/\/$/, '')}/script.js`;
   script.defer = true;
   script.dataset.websiteId = finalWebsiteId;
+  script.dataset.clientKey = finalClientKey;
 
   if (!autoTrack) {
     script.dataset.autoTrack = 'false';
@@ -415,163 +426,6 @@ export function usePageView(pageStore: {
 
     return unsubscribe;
   });
-}
-
-// ============================================================================
-// PHASE 2: Web Vitals Tracking
-// ============================================================================
-
-export type WebVitalMetric = VitalType;
-export type WebVitalRating = VitalRating;
-export type { NavigationType };
-
-export interface WebVitalData {
-  metric: WebVitalMetric;
-  value: number;
-  rating: WebVitalRating;
-  delta?: number;
-  id?: string;
-  navigationType?: NavigationType;
-  attribution?: Record<string, unknown>;
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
-
-/**
- * Track a Web Vital metric
- *
- * @example
- * ```svelte
- * <script>
- *   import { onLCP, onINP, onCLS } from 'web-vitals';
- *   import { trackVital } from '@entrolytics/svelte';
- *
- *   onMount(() => {
- *     onLCP((metric) => trackVital({
- *       metric: 'LCP',
- *       value: metric.value,
- *       rating: metric.rating
- *     }));
- *   });
- * </script>
- * ```
- */
-export async function trackVital(data: WebVitalData): Promise<void> {
-  if (typeof window === 'undefined' || !currentOptions) return;
-
-  const payload = {
-    websiteId: currentOptions.websiteId,
-    metricName: data.metric,
-    metricValue: data.value,
-    rating: data.rating,
-    delta: data.delta,
-    id: data.id,
-    navigationType: data.navigationType,
-    attribution: data.attribution,
-    url: window.location.href,
-    path: window.location.pathname,
-  };
-
-  const host = currentOptions.host || DEFAULT_HOST;
-
-  try {
-    await fetch(`${host}${API_ROUTES.collectVitals}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      keepalive: true,
-    });
-  } catch (err) {
-    console.error('[Entrolytics] Failed to track vital:', err);
-  }
-}
-
-/**
- * Initialize automatic Web Vitals tracking
- * Call this in your root +layout.svelte
- *
- * @example
- * ```svelte
- * <script>
- *   import { initWebVitals } from '@entrolytics/svelte';
- *   import { onMount } from 'svelte';
- *
- *   onMount(() => {
- *     initWebVitals();
- *   });
- * </script>
- * ```
- */
-export async function initWebVitals(): Promise<void> {
-  if (typeof window === 'undefined') return;
-
-  try {
-    const { onCLS, onINP, onLCP, onFCP, onTTFB } = await import('web-vitals/attribution');
-
-    onLCP(m =>
-      trackVital({
-        metric: 'LCP',
-        value: m.value,
-        rating: m.rating,
-        delta: m.delta,
-        id: m.id,
-        navigationType: m.navigationType as NavigationType,
-        attribution: isRecord(m.attribution) ? m.attribution : undefined,
-      }),
-    );
-
-    onINP(m =>
-      trackVital({
-        metric: 'INP',
-        value: m.value,
-        rating: m.rating,
-        delta: m.delta,
-        id: m.id,
-        navigationType: m.navigationType as NavigationType,
-        attribution: isRecord(m.attribution) ? m.attribution : undefined,
-      }),
-    );
-
-    onCLS(m =>
-      trackVital({
-        metric: 'CLS',
-        value: m.value,
-        rating: m.rating,
-        delta: m.delta,
-        id: m.id,
-        navigationType: m.navigationType as NavigationType,
-        attribution: isRecord(m.attribution) ? m.attribution : undefined,
-      }),
-    );
-
-    onFCP(m =>
-      trackVital({
-        metric: 'FCP',
-        value: m.value,
-        rating: m.rating,
-        delta: m.delta,
-        id: m.id,
-        navigationType: m.navigationType as NavigationType,
-        attribution: isRecord(m.attribution) ? m.attribution : undefined,
-      }),
-    );
-
-    onTTFB(m =>
-      trackVital({
-        metric: 'TTFB',
-        value: m.value,
-        rating: m.rating as WebVitalRating,
-        delta: m.delta,
-        id: m.id,
-        navigationType: m.navigationType as NavigationType,
-        attribution: isRecord(m.attribution) ? m.attribution : undefined,
-      }),
-    );
-  } catch {
-    console.debug('[Entrolytics] web-vitals not installed. Use trackVital() for manual tracking.');
-  }
 }
 
 // ============================================================================
