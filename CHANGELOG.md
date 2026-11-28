@@ -5,6 +5,8 @@ All notable changes to this project are documented in this file. The format foll
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-11-28
+
 ### Breaking
 
 - `clientKey` is a required option of `initEntrolytics`, read from `VITE_ENTROLYTICS_CLIENT_KEY`
@@ -33,5 +35,6 @@ All notable changes to this project are documented in this file. The format foll
 
 - Built and released with pnpm 12.24.0. No code changes.
 
-[Unreleased]: https://github.com/entrolytics/svelte-sdk/compare/v3.0.3...HEAD
+[Unreleased]: https://github.com/entrolytics/svelte-sdk/compare/v4.0.0...HEAD
+[4.0.0]: https://github.com/entrolytics/svelte-sdk/compare/v3.0.3...v4.0.0
 [3.0.3]: https://github.com/entrolytics/svelte-sdk/releases/tag/v3.0.3
