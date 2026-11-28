@@ -23,6 +23,10 @@ All notable changes to this project are documented in this file. The format foll
 - `trackVital` posted a payload `/api/collect/vitals` rejected with HTTP 400 and ignored the
   response. Web Vitals now come from the tracker script.
 
+### Changed
+
+- Requires `@entrolytics/shared` 3.2.2.
+
 ## [3.0.3] - 2026-11-26
 
 ### Changed
